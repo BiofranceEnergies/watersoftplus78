@@ -735,3 +735,17 @@ html, body {
         box-sizing: border-box; 
     }
 }
+/* --- FIX MOBILE POUR LE TITRE H1 --- */
+.visual-h1 {
+    word-break: keep-all !important; /* Empêche de couper "Adoucisseur" en deux */
+    overflow-wrap: normal !important;
+    hyphens: none !important;        /* Désactive les tirets automatiques */
+}
+
+@media (max-width: 480px) {
+    .visual-h1 {
+        font-size: 1.9rem !important; /* Réduit la taille pour que ça tienne sur mobile */
+        line-height: 1.2 !important;
+        margin-bottom: 15px !important;
+    }
+}
