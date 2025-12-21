@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log("Conversion Ads envoyée : Lead Final !");
                 }
 
-                alert("Merci ! Un expert Watersoft vous contactera au " + phoneInput.value + ".");
+                alert("Merci ! Votre prix personnalisé vient d'être généré. Un expert Watersoft vous le confirmera au " + phoneInput.value + " sous 2h.");
             })
             .catch(err => {
                 console.error("Erreur", err);
