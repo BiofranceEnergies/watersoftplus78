@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append("utm_source", params.get("utm_source") || "");
             formData.append("utm_campaign", params.get("utm_campaign") || "");
 
-            // Envoi au Google Sheet
+          // Envoi au Google Sheet
             fetch(GOOGLE_SCRIPT_URL, { method: "POST", body: formData, mode: "no-cors" })
             .then(() => {
                 if(submitBtn) {
@@ -197,14 +197,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 // --- SIGNAL GOOGLE ADS : CONVERSION PRINCIPALE ---
                 if(typeof gtag === 'function') {
                     gtag('event', 'conversion', {
-                        'send_to': ADS_ID + '/' + LABEL_LEAD_FINAL, // Envoi vers "Formulaire Lead"
+                        'send_to': ADS_ID + '/' + LABEL_LEAD_FINAL, 
                         'value': 1.0,
                         'currency': 'EUR'
                     });
-                    console.log("Conversion Ads envoyée : Lead Final !");
                 }
 
-                alert("Merci ! Votre prix personnalisé vient d'être généré. Un expert Watersoft vous le confirmera au " + phoneInput.value + " sous 2h.");
+                // --- LOGIQUE DYNAMIQUE POUR L'ALERTE ---
+                // On vérifie si la source contient le mot "devis"
+                let typeDocument = "prix"; 
+                if (currentSource.includes("devis")) {
+                    typeDocument = "devis";
+                }
+
+                alert("Merci ! Votre " + typeDocument + " personnalisé vient d'être généré. Un expert Watersoft vous le confirmera au " + phoneInput.value + " sous 2h.");
             })
             .catch(err => {
                 console.error("Erreur", err);
