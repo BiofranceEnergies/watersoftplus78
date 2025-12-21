@@ -88,11 +88,32 @@ body {
     font-size: 3.5rem; line-height: 1.1; font-weight: 800;
     margin-bottom: 1.5rem; letter-spacing: -1.5px; color: var(--text-white);
 }
+/* --- Style du nouveau H1 SEO (la petite phrase) --- */
 .seo-h1-text {
-    font-size: 1.15rem; color: var(--text-gray); line-height: 1.6;
-    margin-bottom: 2rem; max-width: 90%; font-weight: 400; margin-top: 0;
+    font-size: 1.1rem !important; 
+    color: var(--text-gray);
+    line-height: 1.4;
+    margin-bottom: 8px; /* Espace réduit pour coller au sous-titre */
+    font-weight: 400;
+    max-width: 95%;
+    margin-top: 0;
 }
-.seo-h1-text strong { font-weight: 700; color: white; }
+
+/* --- Style du sous-titre Novaqua --- */
+.hero-desc-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-gray);
+    opacity: 0.9;
+    margin-bottom: 30px; /* Espace avant le simulateur */
+    line-height: 1.6;
+}
+
+/* --- Mise en gras commune --- */
+.seo-h1-text strong, 
+.hero-desc-subtitle strong {
+    font-weight: 700;
+    color: white;
+}
 .highlight { color: var(--primary); }
 
 /* --- SIMULATEUR --- */
