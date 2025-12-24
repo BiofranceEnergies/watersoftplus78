@@ -785,8 +785,9 @@ html, body {
 }
 
 .ws-price-visual {
-  padding: 20px 10px;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0));
+  background: rgba(34, 197, 94, 0.05);
+  padding: 40px 10px 20px 10px; /* J'ai mis 40px en haut pour décoller le texte du titre */
+  position: relative;
 }
 
 .ws-price-wrapper {
