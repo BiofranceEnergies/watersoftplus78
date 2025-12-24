@@ -771,3 +771,119 @@ html, body {
         margin-bottom: 15px !important;
     }
 }
+/* =========================================
+   NOUVEAU STYLE : STRATÉGIE "1 + FLOU" & REVEAL
+   (À coller à la fin de ton fichier CSS)
+   ========================================= */
+
+/* CONTENEUR PRINCIPAL (Step 2 & 3) */
+.ws-final-box {
+  background: #0f172a; /* Fond sombre */
+  border: 2px solid #3b82f6; /* Bleu confiance */
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  margin-top: 10px;
+  max-width: 100%;
+}
+
+/* EN-TÊTE */
+.ws-box-header {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  font-weight: 800;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* ZONE VISUELLE PRIX */
+.ws-price-visual {
+  background: rgba(0,0,0,0.3);
+  padding: 30px 10px;
+  position: relative;
+}
+
+.ws-price-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+}
+
+/* LE 1 NET */
+.ws-digit-sharp {
+  font-size: 50px;
+  font-weight: 900;
+  color: #fff;
+  z-index: 2;
+  letter-spacing: -2px;
+}
+
+/* LE FLOU (BLOC) */
+.ws-blur-block {
+  font-size: 50px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.6);
+  filter: blur(12px); /* C'est ici que le flou se gère */
+  margin-left: 2px;
+  user-select: none;
+}
+
+/* L'EURO */
+.ws-currency {
+  font-size: 24px;
+  font-weight: 700;
+  color: #94a3b8;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+/* BADGE "MASQUÉ" */
+.ws-overlay-badge {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fbbf24;
+  color: #000;
+  font-size: 11px; font-weight: bold;
+  padding: 6px 14px;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  display: flex; align-items: center; gap: 6px;
+  white-space: nowrap;
+}
+
+/* CORPS DU CONTENU */
+.ws-content-body { padding: 25px 20px; }
+
+.ws-main-instruction {
+  font-size: 1.05rem; margin-bottom: 20px; line-height: 1.4; color: #fff;
+}
+
+/* BLOC AVERTISSEMENT / INFO */
+.ws-warning-block {
+  background: rgba(59, 130, 246, 0.1);
+  border-left: 3px solid #3b82f6;
+  padding: 12px;
+  text-align: left;
+  display: flex; gap: 12px;
+  margin-bottom: 20px;
+  border-radius: 0 4px 4px 0;
+}
+.ws-icon-info { font-size: 20px; }
+.ws-warning-block p { font-size: 0.85rem; color: #cbd5e1; margin: 0; line-height: 1.4; }
+.ws-warning-block strong { color: white; }
+
+/* BAS DE PAGE SÉCURITÉ */
+.ws-secure-footer {
+  font-size: 0.75rem; color: #94a3b8; font-style: italic; margin-bottom: 0;
+}
+
+/* FLÈCHE ANIMÉE BOUTON */
+.btn-primary:hover { transform: translateY(-2px); }
