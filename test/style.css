@@ -577,3 +577,23 @@ body {
         padding-right: 10px;
     }
 }
+/* --- CORRECTIF MOBILE : TITRE ÉCONOMIES TROP GROS --- */
+@media (max-width: 968px) {
+    
+    /* Cible le titre "Des économies..." */
+    .section-title h2 {
+        font-size: 1.8rem !important; /* Beaucoup plus petit (était à 2.5rem) */
+        line-height: 1.2 !important;  /* Lignes resserrées */
+        margin-bottom: 10px !important;
+        padding-left: 10px;           /* Marges de sécurité */
+        padding-right: 10px;
+    }
+
+    /* Cible le petit texte en dessous "Un retour sur investissement..." */
+    .section-title p {
+        font-size: 0.95rem !important;
+        padding-left: 15px;
+        padding-right: 15px;
+        line-height: 1.4 !important;
+    }
+}
