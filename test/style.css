@@ -366,11 +366,18 @@ body {
 .verified-tag { background: rgba(34, 197, 94, 0.1); color: #22c55e; font-size: 0.7rem; font-weight: 700; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; }
 .review-content { font-style: italic; color: #cbd5e1; line-height: 1.6; }
 
+/* --- CTA FINAL (CORRIGÉ PROPRE) --- */
 .final-cta-box {
     text-align: center; max-width: 700px; margin: 0 auto; background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 100%);
     border: 1px solid rgba(255,255,255,0.1); padding: 50px; border-radius: 24px;
 }
-.btn-center { display: inline-flex; margin: 0 auto; padding-left: 40px; padding-right: 40px; }
+.final-cta-box h3 { font-size: 1.8rem; color: white; font-weight: 800; margin-bottom: 30px; }
+
+/* Le bouton centré */
+.btn-center { display: inline-flex; margin: 0 auto; padding-left: 40px; padding-right: 40px; height: 55px; width: auto !important; }
+
+/* Le petit texte en dessous */
+.cta-note { color: var(--text-gray); font-size: 0.85rem; margin-top: 15px; opacity: 0.7; }
 
 /* --- FOOTER (CORRIGÉ PROPRE) --- */
 .site-footer {
