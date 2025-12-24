@@ -240,27 +240,45 @@ body {
 /* Les satellites sont masqués */
 .float-stat { display: none !important; }
 
-/* --- 7. AUTRES SECTIONS (Bento, Tech, Avis) --- */
+/* --- 7. AUTRES SECTIONS (Bento CORRECTIF) --- */
+.stats-section { padding: 100px 20px; background-color: var(--dark-bg); border-top: 1px solid rgba(255, 255, 255, 0.05); }
+
+/* Titre de la section */
 .section-title { text-align: center; margin-bottom: 60px; }
 .section-title h2 { font-size: 2.5rem; color: white; font-weight: 800; margin-bottom: 10px; }
 .section-title p { color: var(--text-gray); font-size: 1.1rem; }
 
-/* Bento Grid */
+/* La Grille */
 .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; max-width: 1200px; margin: 0 auto; }
+
+/* Les Cartes (Style propre) */
 .bento-card {
     background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px; padding: 30px; display: flex; flex-direction: column; align-items: flex-start;
+    border-radius: 16px; padding: 30px; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: flex-start;
 }
-.bento-card.featured { grid-column: span 2; background: linear-gradient(145deg, rgba(6, 182, 212, 0.05) 0%, rgba(0,0,0,0) 100%); }
+.bento-card:hover { transform: translateY(-5px); border-color: var(--primary); background: rgba(255, 255, 255, 0.04); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+
+/* Les Icônes */
 .bento-icon {
     margin-bottom: 15px; background: rgba(6, 182, 212, 0.1); width: 50px; height: 50px;
-    display: flex; align-items: center; justify-content: center; border-radius: 10px; color: var(--primary);
+    display: flex; align-items: center; justify-content: center; border-radius: 10px;
+    border: 1px solid rgba(6, 182, 212, 0.2); color: var(--primary);
 }
-.bento-icon svg { width: 28px; height: 28px; }
-.bento-number { font-size: 3rem; font-weight: 900; color: white; margin-bottom: 10px; letter-spacing: -1px; }
+.bento-icon svg { width: 28px; height: 28px; stroke-width: 2; }
+
+/* Les Gros Chiffres */
+.bento-number { font-size: 3rem; font-weight: 900; color: white; line-height: 1; margin-bottom: 10px; letter-spacing: -1px; }
+
+/* Textes */
 .bento-card h3 { color: var(--text-white); font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
 .bento-card p { color: var(--text-gray); font-size: 0.95rem; line-height: 1.5; }
 
+/* Carte Large en bas */
+.bento-card.featured {
+    grid-column: span 2; background: linear-gradient(145deg, rgba(6, 182, 212, 0.05) 0%, rgba(0,0,0,0) 100%);
+    border-color: rgba(6, 182, 212, 0.3);
+}
+.highlight-text { color: var(--primary); text-shadow: 0 0 20px rgba(6, 182, 212, 0.4); }
 /* --- SECTION TECH (Celle qui posait problème, REPARÉE) --- */
 .tech-section { padding: 100px 20px; background-color: #080c16; border-top: 1px solid rgba(255, 255, 255, 0.05); }
 
