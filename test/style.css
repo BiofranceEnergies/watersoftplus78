@@ -514,3 +514,55 @@ body {
 @media (max-width: 480px) {
     .visual-h1 { font-size: 1.9rem !important; }
 }
+
+/* --- CORRECTIF MOBILE BENTO (PLUS COMPACT) --- */
+@media (max-width: 968px) {
+    
+    /* 1. On passe en 2 colonnes pour gagner de la hauteur */
+    .bento-grid { 
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important; /* Côte à côte */
+        gap: 10px !important; /* Espacement réduit */
+        margin-top: 0 !important;
+    }
+
+    /* 2. On réduit la taille des cartes */
+    .bento-card { 
+        padding: 15px !important; /* Beaucoup moins de gras autour */
+        min-height: auto !important; /* On laisse la hauteur s'adapter */
+    }
+
+    /* 3. La dernière carte (600€) reste en pleine largeur pour l'impact */
+    .bento-card.featured { 
+        grid-column: span 2 !important; 
+    }
+
+    /* 4. On réduit la taille des éléments intérieurs */
+    .bento-icon { 
+        width: 35px !important; 
+        height: 35px !important; 
+        margin-bottom: 10px !important;
+    }
+    
+    .bento-icon svg { 
+        width: 18px !important; 
+        height: 18px !important; 
+    }
+
+    .bento-number { 
+        font-size: 1.8rem !important; /* Chiffres plus petits */
+        margin-bottom: 5px !important;
+    }
+
+    .bento-card h3 { 
+        font-size: 0.8rem !important; /* Titre plus petit */
+        margin-bottom: 5px !important;
+        line-height: 1.2 !important;
+    }
+
+    .bento-card p { 
+        font-size: 0.7rem !important; /* Texte explicatif discret */
+        line-height: 1.3 !important;
+        display: block !important;
+    }
+}
