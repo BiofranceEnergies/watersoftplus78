@@ -566,3 +566,14 @@ body {
         display: block !important;
     }
 }
+/* --- CORRECTIF MOBILE : TITRE TECH TROP GROS --- */
+@media (max-width: 968px) {
+    /* On cible le titre H2 de la section Tech */
+    .tech-header h2 {
+        font-size: 1.6rem !important; /* On réduit la taille (au lieu de 2.5rem) */
+        line-height: 1.2 !important;  /* On resserre l'espacement des lignes */
+        margin-bottom: 15px !important;
+        padding-left: 10px;           /* Petites marges de sécurité sur les côtés */
+        padding-right: 10px;
+    }
+}
