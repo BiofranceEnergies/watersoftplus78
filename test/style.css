@@ -847,3 +847,49 @@ html, body {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
 }
+/* =========================================
+   FIX MOBILE : ÉLARGISSEMENT & ALIGNEMENT
+   (À coller tout à la fin du CSS)
+   ========================================= */
+
+@media (max-width: 768px) {
+    
+    /* 1. On réduit les marges extérieures de l'écran */
+    .hero-container {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    /* 2. On supprime le gras inutile autour du simulateur */
+    .simulator-block {
+        padding: 15px 10px !important; /* Moins de padding latéral */
+        width: 100% !important;
+        margin: 0 auto !important;
+    }
+
+    /* 3. On optimise l'espace dans la carte bleue (Arguments) */
+    .saas-card {
+        padding: 12px !important; /* On gagne de la place à l'intérieur */
+        margin-bottom: 15px !important;
+    }
+
+    /* 4. ALIGNEMENT PARFAIT DU TEXTE ET DES ICÔNES */
+    .data-row {
+        display: flex !important;
+        align-items: flex-start !important; /* L'icône reste en haut si le texte fait 2 lignes */
+        gap: 8px !important; /* Espace propre entre icône et texte */
+        margin-bottom: 8px !important;
+    }
+
+    /* 5. Ajustement fine de la police pour que ça rentre */
+    .data-label {
+        font-size: 0.85rem !important; /* Légèrement plus petit pour éviter les césures moches */
+        line-height: 1.3 !important;
+        text-align: left !important;
+    }
+    
+    /* On cache le séparateur inutile sur mobile pour gagner de la hauteur */
+    .separator-line {
+        margin: 8px 0 !important;
+    }
+}
