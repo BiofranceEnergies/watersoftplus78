@@ -372,11 +372,32 @@ body {
 }
 .btn-center { display: inline-flex; margin: 0 auto; padding-left: 40px; padding-right: 40px; }
 
-.site-footer { background-color: #020408; padding: 80px 20px 40px; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+/* --- FOOTER (CORRIGÉ PROPRE) --- */
+.site-footer {
+    background-color: #020408; padding: 80px 20px 40px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.9rem;
+}
 .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; }
-.footer-list { list-style: none; }
-.footer-list li { margin-bottom: 12px; color: var(--text-gray); }
-.footer-list a { color: var(--text-gray); text-decoration: none; }
+
+/* Style du Logo en bas */
+.logo-text.small { font-size: 1.4rem; margin-bottom: 15px; display: block; }
+
+/* Description */
+.footer-desc { color: var(--text-gray); line-height: 1.6; margin-bottom: 20px; font-size: 0.9rem; opacity: 0.7; max-width: 300px; }
+
+/* Titres des colonnes */
+.footer-title { color: white; font-size: 1rem; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+
+/* Listes de liens */
+.footer-list { list-style: none; padding: 0; margin: 0; }
+.footer-list li { margin-bottom: 12px; color: var(--text-gray); display: flex; align-items: center; gap: 10px; }
+.footer-list a { color: var(--text-gray); text-decoration: none; transition: 0.3s; }
+.footer-list a:hover { color: var(--primary); padding-left: 5px; }
+
+/* Le numéro de téléphone en gras blanc */
+.phone-link { font-weight: 700; color: white !important; }
+
+/* Copyright */
+.footer-copyright { margin-top: 30px; font-size: 0.8rem; color: #475569; }
 
 /* Modales & Cookies */
 .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px); align-items: center; justify-content: center; }
