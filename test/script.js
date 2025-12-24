@@ -13,10 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Données de calcul
     const TVA_RATE = 0.10; 
+    // PRIX AJUSTÉS POUR L'OFFRE STANDARD (Commencent par 1...)
     const BASE_PRICES_HT = {
-        "10L": 2200,
-        "15L": 2400,
-        "20L": 2600
+        "10L": 1450, // Donnera env. 1595€ TTC
+        "15L": 1540, // Donnera env. 1694€ TTC (Le Cœur de cible)
+        "20L": 1700  // Donnera env. 1870€ TTC
     };
 
     // Variables globales
@@ -140,14 +141,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 6. ENVOI DU FORMULAIRE FINAL (LEAD) ---
+    // --- 6. ENVOI DU FORMULAIRE ET REVEAL (LOGIQUE 3 TEMPS) ---
     const finalForm = document.getElementById('final-form');
     
     if(finalForm) {
         const phoneInput = finalForm.querySelector('input[type="tel"]');
         const submitBtn = finalForm.querySelector('button');
 
-        // Formatage du numéro à la volée
+        // Formatage automatique du numéro (espaces)
         if(phoneInput) {
             phoneInput.addEventListener('input', function (e) {
                 let v = e.target.value.replace(/\D/g, "").substring(0, 10);
@@ -156,46 +157,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         finalForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            e.preventDefault(); // On bloque le rechargement de page
             if(!phoneInput) return;
 
             const rawPhone = phoneInput.value.replace(/\s/g, '');
             
+            // Validation stricte 10 chiffres
             if(rawPhone.length < 10) {
                 alert("Merci d'entrer un numéro valide (10 chiffres).");
                 return;
             }
 
+            // Bouton en chargement
             if(submitBtn) {
-                submitBtn.innerHTML = "...";
+                submitBtn.innerHTML = "Déblocage en cours...";
                 submitBtn.disabled = true;
+                submitBtn.style.opacity = "0.7";
             }
 
+            // Préparation des données pour le Sheet
             const formData = new FormData();
-            formData.append("phase", "Lead Qualifié"); 
-            
-            // ICI : On utilise la variable dynamique currentSource
+            formData.append("phase", "Lead Qualifié (Offre Débloquée)"); 
             formData.append("source", currentSource);
-            
             formData.append("phone", rawPhone);
             formData.append("foyer", selectedPeople + " personnes");
             formData.append("model_recommande", selectedModelName);
             formData.append("prix_ttc_estime", finalPriceTTC + " €");
             formData.append("economie_annuelle", estimatedSavings + " €/an");
             
+            // Paramètres URL (UTM)
             const params = new URLSearchParams(location.search);
             formData.append("utm_source", params.get("utm_source") || "");
             formData.append("utm_campaign", params.get("utm_campaign") || "");
 
-          // Envoi au Google Sheet
+            // ENVOI (Fetch)
             fetch(GOOGLE_SCRIPT_URL, { method: "POST", body: formData, mode: "no-cors" })
             .then(() => {
-                if(submitBtn) {
-                    submitBtn.innerHTML = "✔";
-                    submitBtn.style.backgroundColor = "#22c55e";
-                }
                 
-                // --- SIGNAL GOOGLE ADS : CONVERSION PRINCIPALE ---
+                // 1. SIGNAL GOOGLE ADS (Conversion)
                 if(typeof gtag === 'function') {
                     gtag('event', 'conversion', {
                         'send_to': ADS_ID + '/' + LABEL_LEAD_FINAL, 
@@ -204,25 +203,46 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
 
-                // --- LOGIQUE DYNAMIQUE POUR L'ALERTE ---
-                // On vérifie si la source contient le mot "devis"
-                let typeDocument = "prix"; 
-                if (currentSource.includes("devis")) {
-                    typeDocument = "devis";
+                // ===============================================
+                // 2. EFFET "REVEAL" (BASCULE VISUELLE)
+                // ===============================================
+
+                // A. Mise à jour du PRIX FINAL (Step 3)
+                const finalDisplay = document.getElementById('final-price-display');
+                if(finalDisplay) {
+                    // Ajoute un espace pour les milliers (ex: 1 694)
+                    finalDisplay.textContent = finalPriceTTC.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
                 }
 
-                alert("Merci ! Votre " + typeDocument + " personnalisé vient d'être généré. Un expert Watersoft vous le confirmera au " + phoneInput.value + " sous 2h.");
+                // B. Calcul et Affichage de la mensualité (4x)
+                const monthlyPayment = Math.round(finalPriceTTC / 4);
+                const monthlyEl = document.getElementById('monthly-payment');
+                if(monthlyEl) {
+                    monthlyEl.textContent = monthlyPayment;
+                }
+
+                // C. On Cache l'étape 2 (Verrou)
+                const step2 = document.getElementById('step-2');
+                if(step2) step2.style.display = 'none';
+
+                // D. On Affiche l'étape 3 (Résultat)
+                const step3 = document.getElementById('step-3');
+                if(step3) {
+                    step3.style.display = 'block';
+                    // Scroll automatique vers le résultat
+                    step3.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+
             })
             .catch(err => {
-                console.error("Erreur", err);
+                console.error("Erreur sheet", err);
                 if(submitBtn) {
-                    submitBtn.innerHTML = "Erreur";
+                    submitBtn.innerHTML = "Erreur, réessayez";
                     submitBtn.disabled = false;
                 }
             });
         });
     }
-
     // Fonction restart
     window.restartSim = function() {
         const s1 = document.getElementById('step-1');
