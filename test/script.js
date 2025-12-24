@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. CONFIGURATION & DONNÉES ---
@@ -27,9 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let estimatedSavings = 0;
 
     // --- LOGIQUE DE DÉTECTION DE LA SOURCE (Adou 27, 28, etc) ---
-    // On récupère la valeur du champ caché qu'on a ajouté dans le HTML
     const sourceInput = document.getElementById('source_lp');
-    // Si le champ existe, on prend sa valeur, sinon on met "Watersoft LP" par défaut
     const currentSource = sourceInput ? sourceInput.value : "Watersoft LP";
 
     // --- 2. GESTION DES MODALES ---
@@ -64,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(btnCalculate) {
         btnCalculate.addEventListener('click', function() {
             
-            // A. Calcul du Modèle adapté
+            // A. Calcul du Modèle adapté et du prix HT
             let priceHT = 0;
             if (selectedPeople <= 2) {
                 selectedModelName = "NOVAQUA 10L"; priceHT = BASE_PRICES_HT["10L"];
@@ -94,10 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // --- ENVOI SILENCIEUX AU TABLEUR (Google Sheets) ---
             const simData = new FormData();
             simData.append("phase", "Simulation (Sans N°)"); 
-            
-            // ICI : On utilise la variable dynamique currentSource au lieu du texte en dur
             simData.append("source", currentSource);
-            
             simData.append("phone", "Non renseigné"); 
             simData.append("foyer", selectedPeople + " personnes");
             simData.append("model_recommande", selectedModelName);
@@ -105,19 +99,27 @@ document.addEventListener('DOMContentLoaded', () => {
             simData.append("economie_annuelle", estimatedSavings + " €/an");
             
             fetch(GOOGLE_SCRIPT_URL, { method: "POST", body: simData, mode: "no-cors" })
-            .then(() => console.log("Données simulation envoyées au Sheet (Source: " + currentSource + ")"))
+            .then(() => console.log("Données simulation envoyées au Sheet"))
             .catch(e => console.error("Erreur envoi sheet", e));
 
             // C. Injection des données dans le HTML
+            
+            // 1. Modèle dans le bloc "Sylvain" (Step 2)
             const displayEl = document.getElementById('model-name-display');
             if(displayEl) displayEl.textContent = selectedModelName;
 
+            // 2. Modèle dans le Titre Vert (Step 3 - Résultat final)
+            // === C'EST ICI LA NOUVEAUTÉ ===
+            const finalTitleEl = document.getElementById('final-model-title');
+            if(finalTitleEl) finalTitleEl.textContent = "ADOUCISSEUR " + selectedModelName;
+
+            // 3. Économies Totales
             const dispTotal = document.getElementById('disp-total');
             if(dispTotal) {
                 dispTotal.textContent = estimatedSavings + " € / an"; 
             }
 
-            // D. Affichage du résultat
+            // D. Affichage de l'étape suivante
             if(step1) step1.style.display = 'none';
             if(step2) step2.style.display = 'block';
             
@@ -130,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(btnBottom) {
         btnBottom.addEventListener('click', function(e) {
             e.preventDefault(); 
-            // Signal simple d'engagement (pas de conversion ici)
+            // Signal simple d'engagement
             if(typeof gtag === 'function') {
                 gtag('event', 'bottom_cta_click', {
                     'event_category': 'Engagement',
@@ -170,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Bouton en chargement
             if(submitBtn) {
-                submitBtn.innerHTML = "Déblocage en cours...";
+                submitBtn.innerHTML = "Vérification en cours..."; // Petit effet "Pro"
                 submitBtn.disabled = true;
                 submitBtn.style.opacity = "0.7";
             }
@@ -243,10 +245,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
     // Fonction restart
     window.restartSim = function() {
         const s1 = document.getElementById('step-1');
         const s2 = document.getElementById('step-2');
+        const s3 = document.getElementById('step-3'); // Ajout pour fermer le step 3 aussi
+        if(s3) s3.style.display = 'none';
         if(s2) s2.style.display = 'none';
         if(s1) s1.style.display = 'block';
     };
