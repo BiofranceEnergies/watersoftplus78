@@ -261,8 +261,44 @@ body {
 .bento-card h3 { color: var(--text-white); font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
 .bento-card p { color: var(--text-gray); font-size: 0.95rem; line-height: 1.5; }
 
-/* Tech Section */
+/* --- SECTION TECH (Celle qui posait problème, REPARÉE) --- */
 .tech-section { padding: 100px 20px; background-color: #080c16; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+
+/* 1. Centrage global du bloc titre */
+.tech-header { 
+    text-align: center; 
+    max-width: 800px; 
+    margin: 0 auto 60px auto; 
+}
+
+/* 2. Le style du BADGE (Cadre bleu sombre + bordure) */
+.tech-header .badge {
+    background: rgba(6, 182, 212, 0.15); /* Fond sombre bleuté */
+    color: var(--primary);               /* Texte Cyan */
+    border: 1px solid rgba(6, 182, 212, 0.3); /* Bordure fine */
+    padding: 8px 16px;                   /* Espace intérieur */
+    border-radius: 4px;                  /* Coins arrondis */
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;               /* Cadre ajusté au texte */
+    margin-bottom: 20px;
+}
+
+/* 3. Ajustement du Titre et du Paragraphe */
+.tech-header h2 { 
+    font-size: 2.5rem; 
+    color: white; 
+    font-weight: 800; 
+    margin-bottom: 15px; 
+}
+.tech-header p { 
+    color: var(--text-gray); 
+    font-size: 1.1rem; 
+}
+
+/* Suite de la section tech */
 .tech-showcase-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; margin-bottom: 50px; }
 .tech-visual-col { position: relative; display: flex; justify-content: center; }
 .product-glow-wrapper { position: relative; width: 100%; max-width: 400px; }
@@ -397,4 +433,3 @@ body {
 @media (max-width: 480px) {
     .visual-h1 { font-size: 1.9rem !important; }
 }
-
