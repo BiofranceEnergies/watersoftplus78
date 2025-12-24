@@ -118,84 +118,96 @@
                     </div>
 
                     <div id="step-2" style="display: none;">
-                        <div class="ws-final-box">
-                            <div class="ws-box-header">✅ ESTIMATION DISPONIBLE</div>
-                        
-                            <div class="ws-price-visual">
-                                <div class="ws-price-wrapper">
-                                    <span class="ws-digit-sharp">1</span>
-                                    <span class="ws-blur-block">690</span>
-                                    <span class="ws-currency">,00 €</span>
-                                </div>
-                                <div class="ws-overlay-badge"><span class="ws-eye-icon">👁️</span> PRIX MASQUÉ</div>
-                            </div>
-                        
-                            <div class="ws-content-body">
-                                <p class="ws-main-instruction">
-                                    Entrez votre numéro pour <strong>débloquer le tarif et les mensualités</strong>.
-                                </p>
-                        
-                                <div class="ws-warning-block">
-                                    <span class="ws-icon-info">ℹ️</span>
-                                    <p>Le prix affiché correspondra à une <strong>installation standard</strong>. Validation technique requise pour confirmer.</p>
-                                </div>
+    
+    <div class="result-header-saas">
+        <div class="expert-avatar-wrapper">
+            <img src="https://raw.githubusercontent.com/BiofranceEnergies/biofrance-images/bbb10b1ac537fc97bfe8c91f25b5b35bfbf9ff30/favicon%20tech%20watersoft.webp" alt="Sylvain Expert" class="expert-avatar-img">
+            <div class="expert-check-badge">✔</div>
+        </div>
+        <div class="result-title-group">
+            <span class="sub-label" style="color: #22c55e;">Configuration validée par Sylvain</span>
+            <h3 class="model-name-saas" id="model-name-display">NOVAQUA 15L</h3>
+        </div>
+    </div>
 
-                                <form id="final-form">
-                                    <input type="hidden" id="source_lp" value="adou_78_deal">
-                                    <div class="sim-row" style="margin-bottom: 15px;">
-                                        <input type="tel" class="sim-input" placeholder="Votre mobile pour voir l'offre" required 
-                                               style="border: 1px solid #3b82f6; background: rgba(0,0,0,0.3); color: white; padding: 12px; border-radius: 4px; width: 100%; text-align:center; font-size:1.1rem;">
-                                    </div>
-                                    <button type="submit" class="btn-primary" 
-                                            style="width: 100%; padding: 14px; background: #fbbf24; color: #0f172a; font-weight: 800; text-transform: uppercase; border: none; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">
-                                        AFFICHER MON PRIX ▼
-                                    </button>
-                                    <p class="ws-secure-footer" style="margin-top:15px;">🔒 Sans engagement - Résultat immédiat</p>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="restart-link" onclick="restartSim()">Relancer le calcul</div>
-                    </div>
+    <div class="saas-card data-card" style="margin-bottom: 20px;">
+        <div class="data-row"><div class="data-label" style="color:white;">⚡ Jusqu'à <strong>18% d'économie</strong> d'énergie</div></div>
+        <div class="data-row"><div class="data-label" style="color:white;">🧼 <strong>-40%</strong> sur vos produits d'entretien</div></div>
+        <div class="data-row"><div class="data-label" style="color:white;">🛡️ Durée de vie appareils <strong>x3</strong></div></div>
+    </div>
 
-                    <div id="step-3" style="display: none;">
-                        <div class="ws-final-box" style="border-color: #22c55e;">
-                            <div class="ws-box-header" style="color: #22c55e; background: rgba(34, 197, 94, 0.1);">
-                                🎉 OFFRE DÉBLOQUÉE
-                            </div>
+    <div class="ws-final-box">
+        <div class="ws-price-visual">
+            <div class="ws-price-wrapper">
+                <span class="ws-digit-sharp">1</span>
+                
+                <div class="ws-blur-zone">
+                    <span>690</span> </div>
 
-                            <div class="ws-price-visual" style="background: rgba(34, 197, 94, 0.05);">
-                                <div class="ws-price-wrapper">
-                                    <span class="ws-digit-sharp" id="final-price-display" style="font-size: 50px;">1 694</span>
-                                    <span class="ws-currency" style="color: #fff;">€ TTC*</span>
-                                </div>
-                                <div style="color: #94a3b8; font-size: 0.8rem; margin-top: 5px; font-style: italic;">
-                                    *Livré, Posé, Mis en service (Installation Standard)
-                                </div>
-                            </div>
+                <span class="ws-currency">€</span>
+            </div>
+            
+            <div style="color: #94a3b8; font-size: 0.8rem; margin-top: 5px; font-style: italic;">
+                (Installation standard incluse)
+            </div>
+        </div>
+    
+        <div class="ws-content-body">
+            <form id="final-form">
+                <input type="hidden" id="source_lp" value="adou_78_deal">
+                
+                <p class="ws-main-instruction">
+                    Entrez votre numéro pour <strong>déflouter le tarif</strong> immédiatement.
+                </p>
 
-                            <div class="ws-content-body">
-                                
-                                <div style="background: linear-gradient(145deg, #1e293b, #0f172a); border: 1px solid #fbbf24; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.1);">
-                                    <div style="color: #fbbf24; font-weight: 800; font-size: 0.9rem; margin-bottom: 5px; text-transform: uppercase;">Facilités de paiement</div>
-                                    <div style="color: white; font-size: 1.4rem; font-weight: 900; margin-bottom: 5px;">
-                                        4x SANS FRAIS
-                                    </div>
-                                    <div style="color: #cbd5e1; font-size: 0.9rem;">
-                                        Soit <span id="monthly-payment">423</span> € / mois
-                                    </div>
-                                </div>
+                <div class="sim-row" style="margin-bottom: 15px;">
+                    <input type="tel" class="sim-input" placeholder="Votre mobile ici..." required 
+                           style="border: 1px solid #3b82f6; background: rgba(255,255,255,0.05); color: white; padding: 12px; border-radius: 4px; width: 100%; text-align:center; font-size:1.1rem;">
+                </div>
+                
+                <button type="submit" class="btn-primary" 
+                        style="width: 100%; padding: 14px; background: #fbbf24; color: #0f172a; font-weight: 800; text-transform: uppercase; border: none; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">
+                    VOIR MON PRIX ▼
+                </button>
+                
+                <p class="ws-secure-footer" style="margin-top:15px; display:flex; justify-content:center; align-items:center; gap:5px;">
+                    🔒 <span style="font-size:0.75rem;">Sans engagement - Validation technique requise</span>
+                </p>
+            </form>
+        </div>
+    </div>
 
-                                <a href="tel:0648893480" class="btn-primary" style="background: #22c55e; color: white; text-decoration: none; display: flex; justify-content: center;">
-                                    📞 VALIDER CE TARIF PAR TÉLÉPHONE
-                                </a>
-                                
-                                <p style="text-align: center; color: #64748b; font-size: 0.75rem; margin-top: 15px;">
-                                    Dossier enregistré sous la réf #WEB-78
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    </div> </div>
+    <div class="restart-link" onclick="restartSim()">Relancer le calcul</div>
+</div>
+
+<div id="step-3" style="display: none;">
+    <div class="ws-final-box" style="border-color: #22c55e;">
+        <div class="ws-box-header" style="color: #22c55e; background: rgba(34, 197, 94, 0.1);">
+            🎉 OFFRE DÉBLOQUÉE
+        </div>
+
+        <div class="ws-price-visual" style="background: rgba(34, 197, 94, 0.05);">
+            <div class="ws-price-wrapper">
+                <span class="ws-digit-sharp" id="final-price-display" style="font-size: 50px;">1 694</span>
+                <span class="ws-currency" style="color: #fff;">€ TTC*</span>
+            </div>
+            <div style="color: #94a3b8; font-size: 0.8rem; margin-top: 5px; font-style: italic;">
+                *Livré, Posé, Mis en service
+            </div>
+        </div>
+
+        <div class="ws-content-body">
+            <div style="background: linear-gradient(145deg, #1e293b, #0f172a); border: 1px solid #fbbf24; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                <div style="color: #fbbf24; font-weight: 800; font-size: 0.9rem; margin-bottom: 5px; text-transform: uppercase;">Facilités de paiement</div>
+                <div style="color: white; font-size: 1.4rem; font-weight: 900; margin-bottom: 5px;">4x SANS FRAIS</div>
+                <div style="color: #cbd5e1; font-size: 0.9rem;">Soit <span id="monthly-payment">423</span> € / mois</div>
+            </div>
+            <a href="tel:0648893480" class="btn-primary" style="background: #22c55e; color: white; text-decoration: none; display: flex; justify-content: center;">
+                📞 APPELER SYLVAIN
+            </a>
+        </div>
+    </div>
+</div>
 
             
             <div class="hero-visual-col">
