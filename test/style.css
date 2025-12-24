@@ -357,7 +357,42 @@ body {
 }
 
 /* Reviews & Footer */
-.reviews-section { padding: 100px 20px; background-color: var(--dark-bg); border-top: 1px solid rgba(255, 255, 255, 0.05); }
+/* --- DÉBUT DU BLOC AVIS (AVEC ÉTOILES GOLD) --- */
+
+.reviews-section { 
+    padding: 100px 20px; 
+    background-color: var(--dark-bg); 
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center; /* Ça centre tout le bloc */
+}
+
+/* LE STYLE DES ÉTOILES */
+.review-visual-stars { margin-bottom: 15px; }
+
+.stars-gold { 
+    color: #fbbf24;       /* <--- C'EST ICI LA COULEUR OR */
+    font-size: 1.5rem;    /* La taille des étoiles */
+    letter-spacing: 3px;  /* L'espace entre les étoiles */
+    display: block; 
+}
+
+.stars-subtext {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin-top: 5px;
+    display: block;
+}
+
+/* LE TITRE "NOS CLIENTS..." */
+.reviews-section h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+/* --- FIN DU BLOC --- */
 .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 80px; }
 .review-card { background: #111827; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 30px; display: flex; flex-direction: column; }
 .card-top-row { display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
