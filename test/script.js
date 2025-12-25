@@ -12,11 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Données de calcul
     const TVA_RATE = 0.10; 
-    // PRIX AJUSTÉS POUR L'OFFRE STANDARD (Commencent par 1...)
+    
+    // PRIX AJUSTÉS POUR L'OFFRE STANDARD (CORRIGÉS)
+    // Utiliser des points (.) pour les décimales et des virgules (,) pour séparer les lignes
     const BASE_PRICES_HT = {
-        "10L": 1636,36 // Donnera env. 1595€ TTC
-        "15L": 1809,09 // Donnera env. 1694€ TTC (Le Cœur de cible)
-        "20L": 1909,09  // Donnera env. 1870€ TTC
+        "10L": 1636.36, // Donnera env. 1800€ TTC
+        "15L": 1809.09, // Donnera env. 1990€ TTC
+        "20L": 1909.09  // Donnera env. 2100€ TTC
     };
 
     // Variables globales
@@ -73,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // B. Calculs Financiers
             finalPriceTTC = Math.round(priceHT * (1 + TVA_RATE));
+            
             // 1. On convertit le prix en texte
             let priceString = finalPriceTTC.toString();
             
@@ -88,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 teaserFirstEl.textContent = firstDigit;
                 teaserRestEl.textContent = restDigits;
             }
+            
             const ecoEnergie = Math.round(selectedPeople * 800 * 0.27 * 0.1); 
             const ecoProduits = Math.round(selectedPeople * 220 * 0.40);        
             const ecoMateriel = 80; 
@@ -124,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if(displayEl) displayEl.textContent = selectedModelName;
 
             // 2. Modèle dans le Titre Vert (Step 3 - Résultat final)
-            // === C'EST ICI LA NOUVEAUTÉ ===
             const finalTitleEl = document.getElementById('final-model-title');
             if(finalTitleEl) finalTitleEl.textContent = "ADOUCISSEUR " + selectedModelName;
 
