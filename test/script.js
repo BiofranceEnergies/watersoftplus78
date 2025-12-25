@@ -73,6 +73,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // B. Calculs Financiers
             finalPriceTTC = Math.round(priceHT * (1 + TVA_RATE));
+            // 1. On convertit le prix en texte
+            let priceString = finalPriceTTC.toString();
+            
+            // 2. On sépare le premier chiffre du reste
+            let firstDigit = priceString.charAt(0);
+            let restDigits = priceString.substring(1);
+
+            // 3. On injecte dans le HTML (Teasing)
+            const teaserFirstEl = document.getElementById('teaser-first');
+            const teaserRestEl = document.getElementById('teaser-rest');
+
+            if(teaserFirstEl && teaserRestEl) {
+                teaserFirstEl.textContent = firstDigit;
+                teaserRestEl.textContent = restDigits;
+            }
             const ecoEnergie = Math.round(selectedPeople * 800 * 0.27 * 0.1); 
             const ecoProduits = Math.round(selectedPeople * 220 * 0.40);        
             const ecoMateriel = 80; 
