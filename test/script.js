@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const TVA_RATE = 0.10; 
     // PRIX AJUSTÉS POUR L'OFFRE STANDARD (Commencent par 1...)
     const BASE_PRICES_HT = {
-        "10L": 1636,36, // Donnera env. 1595€ TTC
+        "10L": 1636,36 // Donnera env. 1595€ TTC
         "15L": 1809,09 // Donnera env. 1694€ TTC (Le Cœur de cible)
         "20L": 1909,09  // Donnera env. 1870€ TTC
     };
