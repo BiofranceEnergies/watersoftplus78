@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. CONFIGURATION & DONNÉES ---
@@ -12,10 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Données de calcul
     const TVA_RATE = 0.10; 
+    
+    // PRIX AJUSTÉS POUR L'OFFRE STANDARD (CORRIGÉS)
+    // Utiliser des points (.) pour les décimales et des virgules (,) pour séparer les lignes
     const BASE_PRICES_HT = {
-        "10L": 2200,
-        "15L": 2400,
-        "20L": 2600
+        "10L": 1636.36, // Donnera env. 1800€ TTC
+        "15L": 1809.09, // Donnera env. 1990€ TTC
+        "20L": 1909.09  // Donnera env. 2100€ TTC
     };
 
     // Variables globales
@@ -25,9 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let estimatedSavings = 0;
 
     // --- LOGIQUE DE DÉTECTION DE LA SOURCE (Adou 27, 28, etc) ---
-    // On récupère la valeur du champ caché qu'on a ajouté dans le HTML
     const sourceInput = document.getElementById('source_lp');
-    // Si le champ existe, on prend sa valeur, sinon on met "Watersoft LP" par défaut
     const currentSource = sourceInput ? sourceInput.value : "Watersoft LP";
 
     // --- 2. GESTION DES MODALES ---
@@ -62,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(btnCalculate) {
         btnCalculate.addEventListener('click', function() {
             
-            // A. Calcul du Modèle adapté
+            // A. Calcul du Modèle adapté et du prix HT
             let priceHT = 0;
             if (selectedPeople <= 2) {
                 selectedModelName = "NOVAQUA 10L"; priceHT = BASE_PRICES_HT["10L"];
@@ -74,6 +76,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // B. Calculs Financiers
             finalPriceTTC = Math.round(priceHT * (1 + TVA_RATE));
+            
+            // 1. On convertit le prix en texte
+            let priceString = finalPriceTTC.toString();
+            
+            // 2. On sépare le premier chiffre du reste
+            let firstDigit = priceString.charAt(0);
+            let restDigits = priceString.substring(1);
+
+            // 3. On injecte dans le HTML (Teasing)
+            const teaserFirstEl = document.getElementById('teaser-first');
+            const teaserRestEl = document.getElementById('teaser-rest');
+
+            if(teaserFirstEl && teaserRestEl) {
+                teaserFirstEl.textContent = firstDigit;
+                teaserRestEl.textContent = restDigits;
+            }
+            
             const ecoEnergie = Math.round(selectedPeople * 800 * 0.27 * 0.1); 
             const ecoProduits = Math.round(selectedPeople * 220 * 0.40);        
             const ecoMateriel = 80; 
@@ -92,10 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // --- ENVOI SILENCIEUX AU TABLEUR (Google Sheets) ---
             const simData = new FormData();
             simData.append("phase", "Simulation (Sans N°)"); 
-            
-            // ICI : On utilise la variable dynamique currentSource au lieu du texte en dur
             simData.append("source", currentSource);
-            
             simData.append("phone", "Non renseigné"); 
             simData.append("foyer", selectedPeople + " personnes");
             simData.append("model_recommande", selectedModelName);
@@ -103,19 +119,26 @@ document.addEventListener('DOMContentLoaded', () => {
             simData.append("economie_annuelle", estimatedSavings + " €/an");
             
             fetch(GOOGLE_SCRIPT_URL, { method: "POST", body: simData, mode: "no-cors" })
-            .then(() => console.log("Données simulation envoyées au Sheet (Source: " + currentSource + ")"))
+            .then(() => console.log("Données simulation envoyées au Sheet"))
             .catch(e => console.error("Erreur envoi sheet", e));
 
             // C. Injection des données dans le HTML
+            
+            // 1. Modèle dans le bloc "Sylvain" (Step 2)
             const displayEl = document.getElementById('model-name-display');
             if(displayEl) displayEl.textContent = selectedModelName;
 
+            // 2. Modèle dans le Titre Vert (Step 3 - Résultat final)
+            const finalTitleEl = document.getElementById('final-model-title');
+            if(finalTitleEl) finalTitleEl.textContent = "ADOUCISSEUR " + selectedModelName;
+
+            // 3. Économies Totales
             const dispTotal = document.getElementById('disp-total');
             if(dispTotal) {
                 dispTotal.textContent = estimatedSavings + " € / an"; 
             }
 
-            // D. Affichage du résultat
+            // D. Affichage de l'étape suivante
             if(step1) step1.style.display = 'none';
             if(step2) step2.style.display = 'block';
             
@@ -128,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(btnBottom) {
         btnBottom.addEventListener('click', function(e) {
             e.preventDefault(); 
-            // Signal simple d'engagement (pas de conversion ici)
+            // Signal simple d'engagement
             if(typeof gtag === 'function') {
                 gtag('event', 'bottom_cta_click', {
                     'event_category': 'Engagement',
@@ -139,14 +162,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 6. ENVOI DU FORMULAIRE FINAL (LEAD) ---
+    // --- 6. ENVOI DU FORMULAIRE ET REVEAL (LOGIQUE 3 TEMPS) ---
     const finalForm = document.getElementById('final-form');
     
     if(finalForm) {
         const phoneInput = finalForm.querySelector('input[type="tel"]');
         const submitBtn = finalForm.querySelector('button');
 
-        // Formatage du numéro à la volée
+        // Formatage automatique du numéro (espaces)
         if(phoneInput) {
             phoneInput.addEventListener('input', function (e) {
                 let v = e.target.value.replace(/\D/g, "").substring(0, 10);
@@ -155,46 +178,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         finalForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            e.preventDefault(); // On bloque le rechargement de page
             if(!phoneInput) return;
 
             const rawPhone = phoneInput.value.replace(/\s/g, '');
             
+            // Validation stricte 10 chiffres
             if(rawPhone.length < 10) {
                 alert("Merci d'entrer un numéro valide (10 chiffres).");
                 return;
             }
 
+            // Bouton en chargement
             if(submitBtn) {
-                submitBtn.innerHTML = "...";
+                submitBtn.innerHTML = "Vérification en cours..."; // Petit effet "Pro"
                 submitBtn.disabled = true;
+                submitBtn.style.opacity = "0.7";
             }
 
+            // Préparation des données pour le Sheet
             const formData = new FormData();
-            formData.append("phase", "Lead Qualifié"); 
-            
-            // ICI : On utilise la variable dynamique currentSource
+            formData.append("phase", "Lead Qualifié (Offre Débloquée)"); 
             formData.append("source", currentSource);
-            
             formData.append("phone", rawPhone);
             formData.append("foyer", selectedPeople + " personnes");
             formData.append("model_recommande", selectedModelName);
             formData.append("prix_ttc_estime", finalPriceTTC + " €");
             formData.append("economie_annuelle", estimatedSavings + " €/an");
             
+            // Paramètres URL (UTM)
             const params = new URLSearchParams(location.search);
             formData.append("utm_source", params.get("utm_source") || "");
             formData.append("utm_campaign", params.get("utm_campaign") || "");
 
-          // Envoi au Google Sheet
+            // ENVOI (Fetch)
             fetch(GOOGLE_SCRIPT_URL, { method: "POST", body: formData, mode: "no-cors" })
             .then(() => {
-                if(submitBtn) {
-                    submitBtn.innerHTML = "✔";
-                    submitBtn.style.backgroundColor = "#22c55e";
-                }
                 
-                // --- SIGNAL GOOGLE ADS : CONVERSION PRINCIPALE ---
+                // 1. SIGNAL GOOGLE ADS (Conversion)
                 if(typeof gtag === 'function') {
                     gtag('event', 'conversion', {
                         'send_to': ADS_ID + '/' + LABEL_LEAD_FINAL, 
@@ -203,19 +224,41 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
 
-                // --- LOGIQUE DYNAMIQUE POUR L'ALERTE ---
-                // On vérifie si la source contient le mot "devis"
-                let typeDocument = "prix"; 
-                if (currentSource.includes("devis")) {
-                    typeDocument = "devis";
+                // ===============================================
+                // 2. EFFET "REVEAL" (BASCULE VISUELLE)
+                // ===============================================
+
+                // A. Mise à jour du PRIX FINAL (Step 3)
+                const finalDisplay = document.getElementById('final-price-display');
+                if(finalDisplay) {
+                    // Ajoute un espace pour les milliers (ex: 1 694)
+                    finalDisplay.textContent = finalPriceTTC.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
                 }
 
-                alert("Merci ! Votre " + typeDocument + " personnalisé vient d'être généré. Un expert Watersoft vous le confirmera au " + phoneInput.value + " sous 2h.");
+                // B. Calcul et Affichage de la mensualité (4x)
+                const monthlyPayment = Math.round(finalPriceTTC / 4);
+                const monthlyEl = document.getElementById('monthly-payment');
+                if(monthlyEl) {
+                    monthlyEl.textContent = monthlyPayment;
+                }
+
+                // C. On Cache l'étape 2 (Verrou)
+                const step2 = document.getElementById('step-2');
+                if(step2) step2.style.display = 'none';
+
+                // D. On Affiche l'étape 3 (Résultat)
+                const step3 = document.getElementById('step-3');
+                if(step3) {
+                    step3.style.display = 'block';
+                    // Scroll automatique vers le résultat
+                    step3.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+
             })
             .catch(err => {
-                console.error("Erreur", err);
+                console.error("Erreur sheet", err);
                 if(submitBtn) {
-                    submitBtn.innerHTML = "Erreur";
+                    submitBtn.innerHTML = "Erreur, réessayez";
                     submitBtn.disabled = false;
                 }
             });
@@ -226,6 +269,8 @@ document.addEventListener('DOMContentLoaded', () => {
     window.restartSim = function() {
         const s1 = document.getElementById('step-1');
         const s2 = document.getElementById('step-2');
+        const s3 = document.getElementById('step-3'); // Ajout pour fermer le step 3 aussi
+        if(s3) s3.style.display = 'none';
         if(s2) s2.style.display = 'none';
         if(s1) s1.style.display = 'block';
     };
